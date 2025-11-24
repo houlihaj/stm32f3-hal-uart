@@ -57,7 +57,7 @@ DMA_HandleTypeDef hdma_usart1_rx;
 /**
   * @brief Text strings printed on PC Com port for user information
   */
-uint8_t aTextInfoStart[] = "\r\nUSART Example : Enter characters to fill reception buffers.\r\n";
+char aTextInfoStart[] = "\r\nUSART Example : Enter characters to fill reception buffers.\r\n";
 
 uint8_t aRXBufferUser[RX_BUFFER_SIZE];
 
@@ -84,7 +84,6 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-void PrintInfo(UART_HandleTypeDef *huart, uint8_t *String, uint16_t Size);
 void StartReception(void);
 void UserDataTreatment(UART_HandleTypeDef *huart, uint8_t* pData, uint16_t Size);
 
@@ -273,21 +272,6 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /**
-  * @brief  Send Txt information message on UART Tx line (to PC Com port).
-  * @param  huart UART handle.
-  * @param  String String to be sent to user display
-  * @param  Size   Size of string
-  * @retval None
-  */
-void PrintInfo(UART_HandleTypeDef *huart, uint8_t *String, uint16_t Size)
-{
-    if (HAL_OK != HAL_UART_Transmit(huart, String, Size, 100))
-    {
-        Error_Handler();
-    }
-}
-
-/**
   * @brief  This function prints user info on PC com port and initiates RX transfer
   * @retval None
   */
@@ -301,7 +285,7 @@ void StartReception(void)
     uwNbReceivedChars        = 0;
 
     /* Print user info on PC com port */
-    PrintInfo(&huart1, aTextInfoStart, COUNTOF(aTextInfoStart));
+    user_uart_println(aTextInfoStart);
 
     /* Initializes Rx sequence using Reception To Idle event API.
         As DMA channel associated to UART Rx is configured as Circular,
