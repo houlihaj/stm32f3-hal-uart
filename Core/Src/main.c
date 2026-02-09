@@ -23,7 +23,7 @@
 /* USER CODE BEGIN Includes */
 
 #include <stdint.h>
-#include <string.h>  /* string handling functions (ex. strcmp and memset) */
+#include <string.h>  /* size_t, strlen */
 
 #include "cli.h"
 #include "cli_cmd_fns.h"
@@ -39,7 +39,7 @@
 /* USER CODE BEGIN PD */
 
 /* Size of Reception buffer */
-#define RX_BUFFER_SIZE 20
+#define RX_BUFFER_SIZE 32
 
 /* USER CODE END PD */
 
@@ -358,7 +358,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
     uint8_t *ptemp;
     uint8_t i;
 
-    /* Check if number of received data in recpetion buffer has changed */
+    /* Check if number of received data in reception buffer has changed */
     if (Size != old_pos)
     {
         /* Check if position of index in reception buffer has simply be increased
@@ -376,7 +376,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
         else
         {
             /* Current position is lower than previous one : end of buffer has been reached */
-            /* First copy data from current position till end of buffer */
+            /* First copy data from current position until end of buffer */
             uwNbReceivedChars = RX_BUFFER_SIZE - old_pos;
             /* Copy received data in "User" buffer for evacuation */
             for (i = 0; i < uwNbReceivedChars; i++)
