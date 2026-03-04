@@ -3,7 +3,8 @@ Host PC to STM32F3 device UART interface with CLI
 
 ## Summary
 - Send bytes individually using a terminal emulator like [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html), [Tera Term](https://teratermproject.github.io/index-en.html), [CoolTerm](https://freeware.the-meiers.org/), etc.
-- Send bytes as a packet ('\r' terminated) using a RS-232 terminal like [Termite](https://www.compuphase.com/software_termite.htm) or [Yet Another Terminal](https://sourceforge.net/projects/y-a-terminal/files/latest/download), or using Python via the [pyserial](https://pyserial.readthedocs.io/) library
+- Send bytes as a packet ('\r' terminated) using a RS-232 terminal like [Termite](https://www.compuphase.com/software_termite.htm), [Yet Another Terminal](https://sourceforge.net/projects/y-a-terminal/files/latest/download), or [RealTerm](https://sourceforge.net/projects/realterm/)
+- Send bytes as a packet ('\r' terminated) using Python via the [pyserial](https://pyserial.readthedocs.io/) library
 
 ## Requirements
 - [MSYS2 (UCRT64 environment)](https://www.msys2.org/)

@@ -18,11 +18,6 @@ extern "C" {
 
 uint8_t cli_set_cmd_members(cli_t* cli);
 
-// static cli_status_t help_func(cli_t cli, int argc, char **argv);
-// static cli_status_t blink_func(cli_t cli, int argc, char **argv);
-// static cli_status_t add_func(cli_t cli, int argc, char **argv);
-// static cli_status_t multiply_func(cli_t cli, int argc, char **argv);
-
 cli_status_t help_func(cli_t cli, int argc, char **argv);
 cli_status_t blink_func(cli_t cli, int argc, char **argv);
 cli_status_t add_func(cli_t cli, int argc, char **argv);

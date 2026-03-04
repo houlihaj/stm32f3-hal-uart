@@ -85,9 +85,8 @@ static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void StartReception(void);
-void UserDataTreatment(UART_HandleTypeDef *huart, uint8_t* pData, uint16_t Size);
-
-void user_uart_println(char* String);  /* cli.c */
+void UserDataTreatment(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size);
+void user_uart_println(char* msg);  /* cli.c */
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -315,7 +314,7 @@ void StartReception(void)
   * @param  pData Pointer on received data buffer to be processed
   * @retval Size  Nb of received characters available in buffer
   */
-void UserDataTreatment(UART_HandleTypeDef *huart, uint8_t* pData, uint16_t Size)
+void UserDataTreatment(UART_HandleTypeDef* huart, uint8_t* pData, uint16_t Size)
 {
     /*
     * This function might be called in any of the following interrupt contexts :
@@ -337,7 +336,7 @@ void UserDataTreatment(UART_HandleTypeDef *huart, uint8_t* pData, uint16_t Size)
     {
         while (!(__HAL_UART_GET_FLAG(huart, UART_FLAG_TXE))) {}
         huart->Instance->TDR = *pBuff;
-        ch = (char)*pBuff;  /* cli.c */
+        ch = (char)*pBuff;         /* cli.c */
         cli_put(&cli, ch);  /* cli.c */
         pBuff++;
     }
@@ -352,7 +351,7 @@ void UserDataTreatment(UART_HandleTypeDef *huart, uint8_t* pData, uint16_t Size)
   *               reception buffer until which, data are available)
   * @retval None
   */
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart, uint16_t Size)
 {
     static uint8_t old_pos = 0;
     uint8_t *ptemp;
@@ -410,13 +409,14 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 /**
   * @brief  Send Txt information message on UART Tx line (to PC Com port).
   * @note   To use in conjunction with cli.c library
+  *
   * @param  String String to be sent to user display
   * @retval None
   */
-void user_uart_println(char* String)  /* cli.c */
+void user_uart_println(char* msg)  /* cli.c */
 {
-    size_t len = strlen(String);  /* bytes before '\0' */
-    if (HAL_OK != HAL_UART_Transmit(&huart1, (uint8_t*)String, (uint16_t)len, 100))
+    size_t len = strlen(msg);  /* bytes before '\0' */
+    if (HAL_OK != HAL_UART_Transmit(&huart1, (uint8_t*)msg, (uint16_t)len, 100))
     {
         Error_Handler();
     }
